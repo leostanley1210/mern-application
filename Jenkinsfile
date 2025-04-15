@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('git Checkout') {
             steps {
                 git 'https://github.com/leostanley1210/Chat_Room.git'
             }
