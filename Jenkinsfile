@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git 'https://github.com/Sushmaa123/mern_application'
+                git 'https://github.com/leostanley1210/mern-application.git'
             }
         }
         stage('Run Docker Compose') {
