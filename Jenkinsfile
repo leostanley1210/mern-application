@@ -14,15 +14,5 @@ pipeline {
                 }
             }
         }
-    
-    stage('docker push') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'compose') {
-                    sh 'docker push leostanely1210/mern'
-                    }
-                }
-            }
-        }
     }
 }
