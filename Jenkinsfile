@@ -15,7 +15,7 @@ pipeline {
             }
         }
     
-  stage('docker push') {
+    stage('docker push') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'compose') {
@@ -24,4 +24,5 @@ pipeline {
                 }
             }
         }
-  }
+    }
+}
