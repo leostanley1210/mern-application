@@ -1,35 +1,27 @@
 pipeline {
     agent any
+
     stages {
-        stage('git Checkout') {
+        stage('git checkout') {
             steps {
-                git 'https://github.com/leostanley1210/Chat_Room.git'
+                git 'https://github.com/Sushmaa123/mern_application'
             }
         }
-
-        stage('docker build') {
+        stage('Run Docker Compose') {
             steps {
-                script {
-                sh 'docker build -t leostanely1210/chatroom .'
-              }
-           }
+                script{
+                    sh 'docker-compose up -d'
+                }
+            }
         }
-
-        stage('docker push') {
+    
+  stage('docker push') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh 'docker push leostanely1210/chatroom'
+                    withDockerRegistry(credentialsId: 'compose') {
+                    sh 'docker push leostanely1210/mern'
                     }
                 }
             }
         }
-       stage('docker container'){
-           steps {
-               script {
-                   sh 'docker run -itd --name chatroom-cont -p 8081:8080 leostanely1210/chatroom'
-                }
-            }
-        }
-     }
- }
+  }
