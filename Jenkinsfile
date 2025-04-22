@@ -16,21 +16,14 @@ pipeline {
                -Dsonar.java.binaries=. \
                -Dsonar.projectKey=mern-application'''
                }
-        }
-      }
-      stage('docker build image') {
-        steps {
-            script {
-              sh 'docker build -t mern-application .' 
             }
-      }
+        }   
+      stage('Run Docker Compose') {
+            steps {
+                script{
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
     }
-   stage('docker container') {
-         steps {
-            script {
-               sh 'docker run -itd --name chat-room -p 8082:8080 mern-application'
-              }
-          }
-    }    
- }       
 }
