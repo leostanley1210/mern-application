@@ -18,7 +18,7 @@ pipeline {
                }
         }
       }
-      stage('docker build') {
+      stage('docker build image') {
         steps {
             script {
               sh 'docker build -t mern-application .' 
