@@ -1,3 +1,7 @@
+def COLOR_MAP = [
+    'SUCCESS': 'good',
+    'FAILURE': 'danger'
+    ]
 pipeline {
    agent any
     environment {
@@ -25,5 +29,26 @@ pipeline {
                 }
             }
         }
+    stage('docker push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred') {
+                       sh 'docker tag mern-app-frontend leostanely1210/mern-app-frontend'
+                       sh 'docker tag mern-app-backend leostanely1210/mern-app-backend'
+                       sh 'docker push leostanely1210/mern-app-frontend'
+                       sh 'docker push leostanely1210/mern-app-backend' 
+                    }
+                }
+            }
+        }
     }
-}
+    post {
+        always {
+            echo 'slack Notification.'
+            slackSend channel: '#jenkins',
+            color: COLOR_MAP [currentBuild.currentResult],
+            message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URl}"
+            
+        }
+    }
+}   
